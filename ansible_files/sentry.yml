@@ -113,7 +113,7 @@
 
     - name: Run Sentry install script
       shell: |
-        ./install.sh --skip-user-creation
+        ./install.sh --skip-user-creation --no-report-self-hosted-issues
       args:
         chdir: "{{ sentry_install_dir }}"
       environment:
