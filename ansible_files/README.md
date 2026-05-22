@@ -64,7 +64,7 @@ Two kernel parameters are set and reloaded immediately via `sysctl`:
 
 ### Stage 5 — Install Sentry
 
-- Runs the bundled `install.sh --skip-user-creation` script inside `sentry_install_dir`
+- Runs the bundled `install.sh --skip-user-creation --no-report-self-hosted-issues` script inside `sentry_install_dir`
 - Sets `COMPOSE_HTTP_TIMEOUT=240` to prevent timeouts when pulling large Docker images
 - Registers the output and marks the task as `changed` only when new volumes are created (idempotency-aware)
 
