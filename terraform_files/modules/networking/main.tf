@@ -189,8 +189,8 @@ resource "aws_security_group" "private_sg" {
   }
 
   ingress {
-    from_port       = 9000
-    to_port         = 9000
+    from_port       = 80
+    to_port         = 80
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
   }
