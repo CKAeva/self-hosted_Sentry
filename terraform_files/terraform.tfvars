@@ -1,0 +1,5 @@
+region       = "eu-west-3"
+env_name     = "staging"
+project_name = "sentry"
+certificate_arn = "arn:aws:acm:eu-west-3:accout-id:certificate/eac49343-ce87-0000-0000-fcdb55f441ab"
+host_header = "sentry-staging.example.com"
