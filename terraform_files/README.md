@@ -45,8 +45,8 @@ The root `main.tf` is the orchestration layer. It instantiates each child module
 | File | Purpose |
 |---|---|
 | `main.tf` | Creates the VPC, public/private subnets, internet gateway, route tables, and security groups |
-| `variables.tf` | Accepts inputs such as `vpc_cidr`, `availability_zones`, `environment` |
-| `outputs.tf` | Exports `vpc_id`, `subnet_ids`, `security_group_ids` for consumption by other modules |
+| `variables.tf` | Accepts inputs such as `vpc_cidr`, `public_subnets`, `private_subnets`, `project_name`, `env_type` |
+| `outputs.tf` | Exports `vpc_id`, `igw_id`, `nat_gateway_ids`, `public_subnet_ids`, `private_subnet_ids`, `public_sg_id`, `alb_sg_id`, `private_sg_id` for consumption by other modules |
 
 ---
 
@@ -57,8 +57,8 @@ Depends on **networking** outputs.
 | File | Purpose |
 |---|---|
 | `main.tf` | Creates the Application Load Balancer, target groups, and HTTP/HTTPS listeners |
-| `variables.tf` | Accepts `vpc_id`, `subnet_ids`, `certificate_arn`, and related settings |
-| `outputs.tf` | Exports `alb_dns_name`, `target_group_arn` used by the compute module |
+| `variables.tf` | Accepts `vpc_id`, `public_subnet_ids`, `alb_sg_id`, `private_instance_id`, `certificate_arn`, `health_check_path`, `alb_idle_timeout`, `enable_deletion_protection`, `enable_access_logs`, `host_header`, `project_name`, `env_name`, and related settings |
+| `outputs.tf` | Exports `alb_id`, `alb_arn`, `alb_dns_name`, `alb_listener_arn`, `target_group_arn`, used by the compute module |
 
 ---
 
@@ -69,8 +69,8 @@ Depends on both **networking** and **alb** outputs.
 | File | Purpose |
 |---|---|
 | `main.tf` | Provisions EC2 instances or Auto Scaling Groups, attaches them to the ALB target group |
-| `variables.tf` | Accepts `ami_id`, `instance_type`, `subnet_ids`, `target_group_arn`, `security_group_ids` |
-| `outputs.tf` | Exports instance IDs, Auto Scaling Group name, and other compute-layer identifiers |
+| `variables.tf` | Accepts `public_subnet_ids`, `private_subnet_ids`, `public_sg_id`, `private_sg_id`, `key_name`, `project_name`, `env_name`, `region`, `instance_type_map`, `ami_map`, `root_volume_size` |
+| `outputs.tf` | Exports `bastion_instance_id`, `bastion_public_ip`, `bastion_public_dns`, `private_instance_id`, `private_instance_ip` identifiers |
 
 ---
 
@@ -123,7 +123,7 @@ terraform destroy
 | Variable | Description | Example |
 |---|---|---|
 | `region` | AWS region to deploy into | `ap-south-1` |
-| `environment` | Deployment environment tag | `dev`, `staging`, `prod` |
+| `environment` | Deployment environment tag | `qa`, `staging`, `production` |
 | `vpc_cidr` | CIDR block for the VPC | `10.0.0.0/16` |
 | `instance_type` | EC2 instance size | `t3.micro` |
 | `ami_id` | AMI to launch compute instances from | `ami-0abcdef1234567890` |
