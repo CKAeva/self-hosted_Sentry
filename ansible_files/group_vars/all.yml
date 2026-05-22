@@ -1,0 +1,29 @@
+---
+sentry_install_dir: /opt/sentry
+sentry_version: master
+
+sentry_domain: sentry.example.com
+sentry_admin_email: admin@example.com
+sentry_admin_pass: #keepyourpass
+
+enable_nginx: true
+enable_firewalld: true
+
+docker_users:
+  - ec2-user
+
+required_packages:
+  - git
+  - curl
+  - wget
+  - vim
+  - unzip
+  - tar
+  - yum-utils
+  - device-mapper-persistent-data
+  - lvm2
+  - ca-certificates
+  - gnupg2
+  - firewalld
+  - python3
+  - python3-pip
