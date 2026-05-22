@@ -22,7 +22,7 @@ resource "aws_lb" "alb" {
 # target group section
 resource "aws_lb_target_group" "tg" {
   name        = "tera-${var.project_name}-tg"
-  port        = 9000
+  port        = 80
   protocol    = "HTTP"
   target_type = "instance"
 
