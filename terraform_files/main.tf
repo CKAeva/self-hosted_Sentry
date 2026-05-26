@@ -3,15 +3,16 @@ provider "aws" {
 }
 
 module "networking" {
-  source = "./modules/networking"
+  #source = "./modules/networking"
+  source = "git::https://github.com/CKAeva/self-hosted_Sentry.git//terraform_files/modules/networking?ref=main"
 
   project_name = var.project_name
   env_type     = var.env_name
 }
 
 module "compute" {
-  source = "./modules/compute"
-
+  #source = "./modules/compute"
+  source = "git::https://github.com/CKAeva/self-hosted_Sentry.git//terraform_files/modules/compute?ref=main"
   env_name = var.env_name
   region   = var.region
 
@@ -26,8 +27,8 @@ module "compute" {
 }
 
 module "alb" {
-  source = "./modules/alb"
-
+  #source = "./modules/alb"
+  source = "git::https://github.com/CKAeva/self-hosted_Sentry.git//terraform_files/modules/alb?ref=main"
   project_name = var.project_name
   env_name     = var.env_name
 
